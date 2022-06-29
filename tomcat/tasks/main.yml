@@ -1,0 +1,25 @@
+---
+- name: install java
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - 'java-1.7.0-openjdk-devel'
+    - 'tomcat'
+    - 'tomcat-webapps'
+    - 'tomcat-admin-webapps'
+
+- name: copy user.xml file
+  template:
+    src: tomcat-users.xml
+    dest: /usr/share/tomcat/conf/tomcat-users.xml
+
+- name: deploy war file
+  get_url:
+    url: http://13.232.10.148:8081/nexus/service/local/repositories/java/content/ram/ram/1.4/ram-1.4.war
+    dest: /usr/share/tomcat/webapps/
+- name: start tomcat
+  service:
+    name: tomcat
+    state: restarted
+# tasks file for tomcat
