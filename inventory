@@ -1,0 +1,3 @@
+[webserver]
+3.110.143.206 ansible_ssh_user=ram ansible_ssh_pass=ram
+
